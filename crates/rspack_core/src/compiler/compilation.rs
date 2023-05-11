@@ -507,7 +507,7 @@ impl Compilation {
             .map(|issuer| issuer.to_string()),
         );
       });
-
+    // 处理依赖，依赖收集
     tokio::task::block_in_place(|| loop {
       while let Some(task) = factorize_queue.get_task() {
         tokio::spawn({

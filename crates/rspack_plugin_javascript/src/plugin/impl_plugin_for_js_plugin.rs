@@ -28,6 +28,7 @@ impl Plugin for JsPlugin {
   fn name(&self) -> &'static str {
     "javascript"
   }
+  // 注册了js的解析器和生成器，是一个hashmap的结构
   fn apply(&mut self, ctx: PluginContext<&mut rspack_core::ApplyContext>) -> Result<()> {
     let create_parser_and_generator =
       move || Box::new(JavaScriptParserAndGenerator::new()) as Box<dyn ParserAndGenerator>;
