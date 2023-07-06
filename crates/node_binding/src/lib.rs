@@ -141,20 +141,22 @@ impl Rspack {
     env: Env,
     options: RawOptions,
     js_hooks: Option<JsHooks>,
-    output_filesystem: ThreadsafeNodeFS,
-    js_loader_runner: JsFunction,
+    output_filesystem: ThreadsafeNodeFS, // 复用nodejs中 fs模块
+    js_loader_runner: JsFunction,        // 复用webpack的loader-runner
   ) -> Result<Self> {
-    init_custom_trace_subscriber(env)?;
-    // rspack_tracing::enable_tracing_by_env();
-    Self::prepare_environment(&env);
+    init_custom_trace_subscriber(env)?; // 初始化自定义跟踪订阅器
+                                        // rspack_tracing::enable_tracing_by_env();
+    Self::prepare_environment(&env); // 准备环境
     tracing::info!("raw_options: {:#?}", &options);
 
     let disabled_hooks: DisabledHooks = Default::default();
     let mut plugins = Vec::new();
     if let Some(js_hooks) = js_hooks {
+      // 如果js_hooks存在，将其转换为JsHooksAdapter并添加到plugins向量中。
       plugins.push(JsHooksAdapter::from_js_hooks(env, js_hooks, disabled_hooks.clone())?.boxed());
     }
 
+    // 尝试从js_loader_runner创建一个JsLoaderRunner实例，并将其添加到plugins向量中。
     let js_loader_runner: JsLoaderRunner = JsLoaderRunner::try_from(js_loader_runner)?;
     plugins.push(
       JsLoaderResolver {
@@ -163,12 +165,14 @@ impl Rspack {
       .boxed(),
     );
 
+    // 根据js中的options，实例化rust中的options
     let compiler_options = options
       .apply(&mut plugins, &js_loader_runner)
       .map_err(|e| Error::from_reason(format!("{e}")))?;
 
     tracing::info!("normalized_options: {:#?}", &compiler_options);
 
+    // 创建rspack实例
     let rspack = rspack_core::Compiler::new(
       compiler_options,
       plugins,
@@ -176,6 +180,7 @@ impl Rspack {
         .map_err(|e| Error::from_reason(format!("Failed to create writable filesystem: {e}",)))?,
     );
 
+    // 生成一个新的编译器ID，并将新创建的编译器添加到全局的COMPILERS映射中。
     let id = COMPILER_ID.fetch_add(1, Ordering::SeqCst);
     unsafe { COMPILERS.insert_if_vacant(id, Box::pin(rspack)) }?;
 

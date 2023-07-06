@@ -294,6 +294,7 @@ class Compiler {
 
 		const instanceBinding: typeof binding = require("@rspack/binding");
 
+		console.log("complier.ts options =>", options);
 		this.#_instance =
 			this.#_instance ??
 			new instanceBinding.Rspack(

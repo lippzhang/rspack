@@ -99,6 +99,7 @@ impl RawOptionsApply for RawOptions {
     // https://github.com/web-infra-dev/rspack/discussions/3252#discussioncomment-6182939
     // will solve the order problem by add EntryOptionPlugin on js side, and we can only
     // care about EntryOptions instead EntryDescription
+    // key = "main"
     for key in &self.__entry_order {
       if let Some((name, desc)) = self.entry.remove_entry(key) {
         for request in desc.import {
@@ -149,7 +150,7 @@ impl RawOptionsApply for RawOptions {
     let node = self.node.map(|n| n.into());
     let dev_server: DevServerOptions = self.dev_server.into();
     let builtins = self.builtins.apply(plugins, loader_runner)?;
-
+    // 根据options初始化插件
     plugins.push(rspack_plugin_schemes::DataUriPlugin.boxed());
     plugins.push(rspack_plugin_schemes::FileUriPlugin.boxed());
 

@@ -156,7 +156,8 @@ impl Compilation {
       include_module_ids: IdentifierSet::default(),
     }
   }
-
+  // 这个函数的主要功能是向 entries（一个映射）中添加或更新条目。
+  // 如果 name 已经存在于 entries 中，那么它会将 entry 添加到对应条目的 dependencies 列表中。如果 name 不存在于 entries 中，那么它会创建一个新的 EntryData 对象，其中 dependencies 列表包含 entry，并且 options 设置为传入的 options，然后将这个新的 EntryData 对象插入到 entries 中，键为 name。
   pub fn add_entry(&mut self, entry: DependencyId, name: String, options: EntryOptions) {
     if let Some(data) = self.entries.get_mut(&name) {
       data.dependencies.push(entry);
@@ -314,9 +315,10 @@ impl Compilation {
     chunk_by_ukey.add(chunk);
     chunk_by_ukey.get_mut(&ukey).expect("chunk not found")
   }
-
+  // 这个函数的主要功能是构建或更新模块图。 这个函数的目的是尝试构建模块，并在构建失败时尝试重新构建失败的模块和依赖，然后更新模块图。
   #[instrument(name = "compilation:make", skip_all)]
   pub async fn make(&mut self, mut param: MakeParam) -> Result<()> {
+    // 1. 首先，它尝试调用 plugin_driver 的 make 方法来构建模块。如果这个过程中发生错误，它会将错误转换为诊断信息并添加到诊断集合中。 plugin_entry 标记入口模块
     if let Some(e) = self
       .plugin_driver
       .clone()
@@ -326,10 +328,12 @@ impl Compilation {
     {
       self.push_batch_diagnostic(e.into());
     }
+    // 2.然后，它创建两个 MakeParam 类型的变量 make_failed_module 和 make_failed_dependencies，分别表示构建失败的模块和依赖。
     let make_failed_module =
       MakeParam::ForceBuildModules(std::mem::take(&mut self.make_failed_module));
     let make_failed_dependencies =
       MakeParam::ForceBuildDeps(std::mem::take(&mut self.make_failed_dependencies));
+    // 3. 最后，它调用 update_module_graph 方法来更新模块图，参数是一个包含 param、make_failed_module 和 make_failed_dependencies 的向量。
     self
       .update_module_graph(vec![param, make_failed_module, make_failed_dependencies])
       .await
@@ -390,18 +394,18 @@ impl Compilation {
         origin_module_issuers.insert(*id, mgm.get_issuer().clone());
       }
     }
-
+    // 创建多个队列和集合，用于处理模块的创建、添加、构建和依赖处理。
     let mut active_task_count = 0usize;
     let is_expected_shutdown = Arc::new(AtomicBool::new(false));
     let (result_tx, mut result_rx) = tokio::sync::mpsc::unbounded_channel::<Result<TaskResult>>();
-    let mut factorize_queue = FactorizeQueue::new();
-    let mut add_queue = AddQueue::new();
-    let mut build_queue = BuildQueue::new();
+    let mut factorize_queue = FactorizeQueue::new(); // 分解任务队列
+    let mut add_queue = AddQueue::new(); // 增加模块队列
+    let mut build_queue = BuildQueue::new(); // 构建模块队列
     let mut process_dependencies_queue = ProcessDependenciesQueue::new();
     let mut make_failed_dependencies: HashSet<BuildDependency> = HashSet::default();
     let mut make_failed_module = HashSet::default();
     let mut errored = None;
-
+    // 通过循环处理任务队列中的任务，直到所有任务都被处理完毕。
     deps_builder
       .revoke_modules(&mut self.module_graph)
       .into_iter()
@@ -415,7 +419,7 @@ impl Compilation {
         if parent_module_identifier.is_some() && parent_module.is_none() {
           return;
         }
-
+        // 模块创建
         self.handle_module_creation(
           &mut factorize_queue,
           parent_module_identifier,
@@ -432,8 +436,9 @@ impl Compilation {
             .map(|issuer| issuer.to_string()),
         );
       });
-
+    // 并行，异步处理 factorize_queue， build_queue，add_queue，process_dependencies_queue 中的task
     tokio::task::block_in_place(|| loop {
+      // 处理模块并对模块进行创建，并且添加到 factorizeQueue 队列
       while let Some(task) = factorize_queue.get_task() {
         tokio::spawn({
           let result_tx = result_tx.clone();
@@ -463,7 +468,7 @@ impl Compilation {
           }
         });
       }
-
+      // 准备编译
       while let Some(task) = build_queue.get_task() {
         tokio::spawn({
           let result_tx = result_tx.clone();
@@ -491,13 +496,13 @@ impl Compilation {
           }
         });
       }
-
+      // 添加 module 模块
       while let Some(task) = add_queue.get_task() {
         active_task_count += 1;
         let result = task.run(self);
         result_tx.send(result).expect("Failed to send add result");
       }
-
+      // 处理依赖 递归收集模块处理依赖
       while let Some(task) = process_dependencies_queue.get_task() {
         active_task_count += 1;
 
