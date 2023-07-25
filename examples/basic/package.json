@@ -14,5 +14,8 @@
   "sideEffects": false,
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@rspack/core": "workspace:^0.2.8"
+  }
 }

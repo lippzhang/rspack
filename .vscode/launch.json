@@ -1,6 +1,15 @@
 {
   "configurations": [
     {
+      "type": "node",
+      "request": "launch",
+      "name": "启动程序jsdebug",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/examples/basic/build.js"
+    },
+    {
       "name": "debug-js",
       "port": 9229,
       "request": "attach",

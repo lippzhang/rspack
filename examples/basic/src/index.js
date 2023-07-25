@@ -1,4 +1,5 @@
 import { answer } from "./answer";
+import './bar'
 function render() {
 	document.getElementById(
 		"root"

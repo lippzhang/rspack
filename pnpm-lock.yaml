@@ -237,6 +237,9 @@ importers:
   examples/basic:
     specifiers:
       '@rspack/cli': workspace:*
+      '@rspack/core': workspace:^0.2.8
+    dependencies:
+      '@rspack/core': link:../../packages/rspack
     devDependencies:
       '@rspack/cli': link:../../packages/rspack-cli
 

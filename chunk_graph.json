@@ -1,0 +1,101 @@
+{ 
+  split_point_module_identifier_to_chunk_ukey: {
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/foo.js")): rspack_core::chunk::ChunkSid(1)
+  }, 
+  block_to_chunk_group_ukey: {
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/index.js")): rspack_core::chunk_group::ChunkGroupSid(0), 
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/foo.js")): rspack_core::chunk_group::ChunkGroupSid(1)
+  }, 
+  chunk_graph_module_by_module_identifier: {
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/answer.js")): ChunkGraphModule { 
+      id: Some("33"), 
+      entry_in_chunks: {}, 
+      chunks: {rspack_core::chunk::ChunkSid(0)}, 
+      runtime_requirements: Some(RuntimeSpecMap { 
+        mode: SingleEntry, 
+        map: {}, 
+        single_runtime: Some({"main"}), 
+        single_value: Some(LOAD_CHUNK_WITH_MODULE | ENSURE_CHUNK | DEFINE_PROPERTY_GETTERS | MAKE_NAMESPACE_OBJECT | EXPORTS | CREATE_FAKE_NAMESPACE_OBJECT) 
+      }), 
+      runtime_in_chunks: {} 
+      }, 
+    Identifier(u!("{"main"}/webpack/runtime/get_chunk_filename/__webpack_require__.u")): ChunkGraphModule { 
+        id: None, 
+        entry_in_chunks: {}, 
+        chunks: {rspack_core::chunk::ChunkSid(0)}, 
+        runtime_requirements: None, 
+        runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} 
+      }, 
+    Identifier(u!("{"main"}/webpack/runtime/load_script")): ChunkGraphModule { 
+      id: None, 
+      entry_in_chunks: {}, 
+      chunks: {rspack_core::chunk::ChunkSid(0)}, 
+      runtime_requirements: None, 
+      runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} 
+    }, 
+    Identifier(u!("{"main"}/webpack/runtime/get_chunk_filename/__webpack_require__.k")): ChunkGraphModule { 
+      id: None, 
+      entry_in_chunks: {}, 
+      chunks: {rspack_core::chunk::ChunkSid(0)}, 
+      runtime_requirements: None, 
+      runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} 
+    }, 
+    Identifier(u!("{"main"}/webpack/runtime/has_own_property")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} },
+    Identifier(u!("{"main"}/webpack/runtime/define_property_getters")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("{"main"}/webpack/runtime/make_namespace_object")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("{"main"}/webpack/runtime/public_path")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("{"main"}/webpack/runtime/jsonp_chunk_loading")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/index.js")): ChunkGraphModule { id: Some("151"), entry_in_chunks: {rspack_core::chunk::ChunkSid(0)}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: Some(RuntimeSpecMap { mode: SingleEntry, map: {}, single_runtime: Some({"main"}), single_value: Some(REQUIRE | MAKE_NAMESPACE_OBJECT | EXPORTS) }), runtime_in_chunks: {} }, 
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/foo.js")): ChunkGraphModule { id: Some("447"), entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(1)}, runtime_requirements: Some(RuntimeSpecMap { mode: SingleEntry, map: {}, single_runtime: Some({"main"}), single_value: Some((empty)) }), runtime_in_chunks: {} }, 
+    Identifier(u!("{"main"}/webpack/runtime/css_loading")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/bar.js")): ChunkGraphModule { id: Some("62"), entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: Some(RuntimeSpecMap { mode: SingleEntry, map: {}, single_runtime: Some({"main"}), single_value: Some((empty)) }), runtime_in_chunks: {} }, 
+    Identifier(u!("{"main"}/webpack/runtime/load_chunk_with_module")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("{"main"}/webpack/runtime/ensure_chunk")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }, 
+    Identifier(u!("{"main"}/webpack/runtime/create_fake_namespace_object")): ChunkGraphModule { id: None, entry_in_chunks: {}, chunks: {rspack_core::chunk::ChunkSid(0)}, runtime_requirements: None, runtime_in_chunks: {rspack_core::chunk::ChunkSid(0)} }
+  },
+  chunk_graph_chunk_by_chunk_ukey: {
+    rspack_core::chunk::ChunkSid(0): ChunkGraphChunk { 
+      entry_modules: { Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/index.js")): rspack_core::chunk_group::ChunkGroupSid(0)}, 
+      modules: { 
+        Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/answer.js")), 
+        Identifier(u!("{"main"}/webpack/runtime/get_chunk_filename/__webpack_require__.u")), 
+        Identifier(u!("{"main"}/webpack/runtime/load_script")), 
+        Identifier(u!("{"main"}/webpack/runtime/get_chunk_filename/__webpack_require__.k")), 
+        Identifier(u!("{"main"}/webpack/runtime/has_own_property")), 
+        Identifier(u!("{"main"}/webpack/runtime/define_property_getters")), 
+        Identifier(u!("{"main"}/webpack/runtime/make_namespace_object")), 
+        Identifier(u!("{"main"}/webpack/runtime/public_path")), 
+        Identifier(u!("{"main"}/webpack/runtime/jsonp_chunk_loading")), 
+        Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/index.js")), 
+        Identifier(u!("{"main"}/webpack/runtime/css_loading")), 
+        Identifier(u!("{"main"}/webpack/runtime/ensure_chunk")), 
+        Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/bar.js")), 
+        Identifier(u!("{"main"}/webpack/runtime/load_chunk_with_module")), 
+        Identifier(u!("{"main"}/webpack/runtime/create_fake_namespace_object"))
+      }, 
+      runtime_requirements: LOAD_CHUNK_WITH_MODULE | REQUIRE | ENSURE_CHUNK | ENSURE_CHUNK_HANDLERS | PUBLIC_PATH | GET_CHUNK_SCRIPT_FILENAME | GET_CHUNK_CSS_FILENAME | LOAD_SCRIPT | HAS_OWN_PROPERTY | MODULE_FACTORIES_ADD_ONLY | CHUNK_CALLBACK | DEFINE_PROPERTY_GETTERS | MAKE_NAMESPACE_OBJECT | EXPORTS | CREATE_FAKE_NAMESPACE_OBJECT, 
+      runtime_modules: [
+        Identifier(u!("{"main"}/webpack/runtime/css_loading")), 
+        Identifier(u!("{"main"}/webpack/runtime/jsonp_chunk_loading")), 
+        Identifier(u!("{"main"}/webpack/runtime/load_chunk_with_module")), 
+        Identifier(u!("{"main"}/webpack/runtime/ensure_chunk")), 
+        Identifier(u!("{"main"}/webpack/runtime/public_path")), 
+        Identifier(u!("{"main"}/webpack/runtime/get_chunk_filename/__webpack_require__.u")), 
+        Identifier(u!("{"main"}/webpack/runtime/get_chunk_filename/__webpack_require__.k")), 
+        Identifier(u!("{"main"}/webpack/runtime/load_script")), 
+        Identifier(u!("{"main"}/webpack/runtime/has_own_property")), 
+        Identifier(u!("{"main"}/webpack/runtime/define_property_getters")), 
+        Identifier(u!("{"main"}/webpack/runtime/make_namespace_object")), 
+        Identifier(u!("{"main"}/webpack/runtime/create_fake_namespace_object"))
+      ] 
+      }, 
+    rspack_core::chunk::ChunkSid(1): ChunkGraphChunk { 
+        entry_modules: {}, 
+        modules: {
+          Identifier(u!("/Users/zhanglipeng/work/github/rspack/examples/basic/src/foo.js"))
+        }, 
+        runtime_requirements: CHUNK_CALLBACK, 
+        runtime_modules: [] 
+      }
+  } 
+}
